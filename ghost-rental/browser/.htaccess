@@ -48,6 +48,9 @@ ErrorDocument 404 /index.html
 # --------------------------
 <IfModule mod_deflate.c>
   AddOutputFilterByType DEFLATE application/javascript
+	AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/font-woff
+  AddOutputFilterByType DEFLATE application/font-woff2
   AddOutputFilterByType DEFLATE application/rss+xml
   AddOutputFilterByType DEFLATE application/vnd.ms-fontobject
   AddOutputFilterByType DEFLATE application/x-font
@@ -67,6 +70,8 @@ ErrorDocument 404 /index.html
   AddOutputFilterByType DEFLATE text/html
   AddOutputFilterByType DEFLATE text/javascript
   AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+
 </IfModule>
 
 <IfModule mod_gzip.c>
@@ -117,6 +122,9 @@ ErrorDocument 404 /index.html
   # Content Security Policy (allow API on :5014)
   #Header always set Content-Security-Policy "default-src 'self'; connect-src 'self' https://www.ghostrentals.com:5014; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; media-src 'self' https://www.ghostrentals.com:5014; object-src 'none'"
 	Header always set Content-Security-Policy " default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; script-src * 'unsafe-inline' 'unsafe-eval' data: blob:; style-src * 'unsafe-inline' data:; img-src * data: blob:; font-src * data:; connect-src *; media-src * data: blob:; frame-src *; object-src *; "
+
+	# Ensure proxies and browsers handle compression properly
+  Header append Vary Accept-Encoding
 
   # Cache-Control rules
   <filesmatch "\.(ico|flv|jpg|jpeg|png|gif|css|swf)$">
